@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+require 'aws-sdk'
+
+ARGV.each do |build_number|
+	AWS::S3.new.buckets['erb-archive'].objects["build-#{build_number}.tar.gz"].read do |chunk|
+		$stdout.write(chunk)
+	end
+end
